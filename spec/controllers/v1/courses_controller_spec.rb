@@ -1,8 +1,10 @@
 require "rails_helper"
 
 RSpec.describe V1::CoursesController, type: :controller do
+  let!(:author) { create(:author) }
+
   describe "GET #index" do
-    let!(:course) { create(:course) }
+    let!(:course) { create(:course, author: author) }
 
     context "API V1 response body" do
       it "should return courses collection" do
@@ -28,7 +30,7 @@ RSpec.describe V1::CoursesController, type: :controller do
       let(:valid_params) { {
         title: "Sample Course Title",
         description: "Sample description for course",
-        author_id: 1
+        author_id: author.id
       } }
 
       it "should return record created" do
@@ -46,7 +48,7 @@ RSpec.describe V1::CoursesController, type: :controller do
       let(:invalid_params) { {
         title: "",
         description: "Sample description for the course",
-        author_id: 1
+        author_id: author.id
       } }
 
       it "should not create record" do
@@ -61,7 +63,7 @@ RSpec.describe V1::CoursesController, type: :controller do
   end
 
   describe "PUT #update" do
-    let!(:course) { create(:course) }
+    let!(:course) { create(:course, author: author) }
 
     context "with valid params" do
       let(:valid_params) { { title: "Another title" } }
@@ -90,7 +92,7 @@ RSpec.describe V1::CoursesController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    let!(:course) { create(:course) }
+    let!(:course) { create(:course, author: author) }
 
     it "should return proper message" do
       delete :destroy, params: { id: course.id }

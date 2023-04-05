@@ -7,6 +7,8 @@ RSpec.describe Course, type: :model do
 
   describe "associations" do
     it { is_expected.to belong_to :author }
+    it { is_expected.to have_many :learning_path_courses }
+    it { is_expected.to have_many :learning_paths }
     it { is_expected.to have_many :talent_courses }
     it { is_expected.to have_many :talents }
   end
