@@ -6,6 +6,7 @@ RSpec.describe Course, type: :model do
   subject { build(:course) }
 
   describe "associations" do
+    it { is_expected.to belong_to :author }
     it { is_expected.to have_many :talent_courses }
     it { is_expected.to have_many :talents }
   end

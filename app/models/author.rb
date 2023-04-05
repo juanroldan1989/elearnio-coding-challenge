@@ -4,4 +4,6 @@ class Author < ApplicationRecord
   validates :first_name, uniqueness: {
     scope: :last_name, message: "combined with Last name already exists"
   }
+
+  has_many :courses
 end
