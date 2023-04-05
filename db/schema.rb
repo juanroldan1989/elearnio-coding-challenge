@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_05_130822) do
+ActiveRecord::Schema.define(version: 2023_04_05_143125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,22 @@ ActiveRecord::Schema.define(version: 2023_04_05_130822) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["title"], name: "index_courses_on_title", unique: true
+  end
+
+  create_table "learning_path_courses", force: :cascade do |t|
+    t.integer "learning_path_id", null: false
+    t.integer "course_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_path_id", "course_id"], name: "index_learning_path_courses_on_learning_path_id_and_course_id", unique: true
+  end
+
+  create_table "learning_paths", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["title"], name: "index_learning_paths_on_title", unique: true
   end
 
   create_table "talent_courses", force: :cascade do |t|
