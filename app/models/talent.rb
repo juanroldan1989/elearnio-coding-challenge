@@ -4,4 +4,7 @@ class Talent < ApplicationRecord
   validates :first_name, uniqueness: {
     scope: :last_name, message: "combined with Last name already exists"
   }
+
+  has_many :talent_courses
+  has_many :courses, through: :talent_courses
 end
