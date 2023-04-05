@@ -30,7 +30,9 @@ module V1
     end
 
     def destroy
-      message = if LearningPath.destroy(params[:id])
+      learning_path = LearningPath.find(params[:id])
+
+      message = if learning_path.destroy
         "LearningPath deleted"
       else
         learning_path.errors.full_messages

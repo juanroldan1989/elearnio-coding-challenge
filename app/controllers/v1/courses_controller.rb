@@ -22,7 +22,9 @@ module V1
     end
 
     def destroy
-      message = if Course.destroy(params[:id])
+      course = Course.find(params[:id])
+
+      message = if course.destroy
         "Course deleted"
       else
         course.errors.full_messages

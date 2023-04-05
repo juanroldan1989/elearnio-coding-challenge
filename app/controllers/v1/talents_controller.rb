@@ -22,7 +22,9 @@ module V1
     end
 
     def destroy
-      message = if Talent.destroy(params[:id])
+      talent = Talent.find(params[:id])
+
+      message = if talent.destroy
         "Talent deleted"
       else
         talent.errors.full_messages
