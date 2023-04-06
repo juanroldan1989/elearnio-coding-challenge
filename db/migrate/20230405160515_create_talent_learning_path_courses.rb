@@ -3,7 +3,7 @@ class CreateTalentLearningPathCourses < ActiveRecord::Migration[6.0]
     create_table :talent_learning_path_courses do |t|
       t.integer :talent_id, null: false
       t.integer :learning_path_id, null: false
-      t.integer :course_id, null: false
+      t.integer :course_id
       t.integer :course_status, default: 0
 
       t.timestamps

@@ -54,12 +54,13 @@ ActiveRecord::Schema.define(version: 2023_04_05_160515) do
     t.integer "course_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["talent_id", "course_id"], name: "index_talent_courses_on_talent_id_and_course_id", unique: true
   end
 
   create_table "talent_learning_path_courses", force: :cascade do |t|
     t.integer "talent_id", null: false
     t.integer "learning_path_id", null: false
-    t.integer "course_id", null: false
+    t.integer "course_id"
     t.integer "course_status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

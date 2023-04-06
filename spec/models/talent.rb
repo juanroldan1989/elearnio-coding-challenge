@@ -8,6 +8,8 @@ RSpec.describe Talent, type: :model do
   describe "associations" do
     it { is_expected.to have_many :talent_courses }
     it { is_expected.to have_many(:courses).through(:talent_courses) }
+    it { is_expected.to have_many :talent_learning_path_courses }
+    it { is_expected.to have_many(:learning_paths).through(:talent_learning_path_courses) }
   end
 
   describe "validations" do

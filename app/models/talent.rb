@@ -7,4 +7,6 @@ class Talent < ApplicationRecord
 
   has_many :talent_courses
   has_many :courses, through: :talent_courses
+  has_many :talent_learning_path_courses
+  has_many :learning_paths, through: :talent_learning_path_courses
 end

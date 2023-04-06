@@ -5,7 +5,6 @@ class TalentLearningPathCourse < ApplicationRecord
 
   validates :talent_id, presence: true
   validates :learning_path_id, presence: true
-  validates :course_id, presence: true
 
   belongs_to :talent
   belongs_to :learning_path

@@ -34,7 +34,7 @@ RSpec.describe V1::TalentLearningPathCoursesController, type: :controller do
         response_body = JSON.parse(response.body)
 
         expect(response_body["talent_learning_path_course"]).to eq nil
-        expect(response_body["message"]).to eq ["Talent can't be blank", "Learning path can't be blank", "Course can't be blank", "Talent must exist", "Learning path must exist", "Course must exist"]
+        expect(response_body["message"]).to eq ["Talent can't be blank", "Learning path can't be blank", "Talent must exist", "Learning path must exist", "Course must exist"]
       end
     end
   end
