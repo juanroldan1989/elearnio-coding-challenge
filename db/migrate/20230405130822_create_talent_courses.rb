@@ -6,5 +6,7 @@ class CreateTalentCourses < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+
+    add_index :talent_courses, [:talent_id, :course_id], unique: true
   end
 end
