@@ -79,7 +79,7 @@
         ],
         "responses": {
           "200": {
-            "description": "An author object.",
+            "description": "An Author object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -113,7 +113,7 @@
         ],
         "responses": {
           "200": {
-            "description": "An author object.",
+            "description": "An Author object.",
             "content": null,
             "application/json": {
               "schema": {
@@ -143,7 +143,7 @@
         }
       },
       "post": {
-        "summary": "Creates course record",
+        "summary": "Creates Course record (Assigns Author to Course as well)",
         "requestBody": {
           "required": true,
           "content": {
@@ -210,7 +210,7 @@
         }
       },
       "put": {
-        "summary": "Updates Course record",
+        "summary": "Updates Course record (updates Author for a Course too)",
         "requestBody": {
           "required": true,
           "content": {
@@ -381,7 +381,7 @@
         }
       },
       "post": {
-        "summary": "Creates Learning Path record",
+        "summary": "Creates Learning Path record (and associates Courses with it)",
         "requestBody": {
           "required": true,
           "content": {
@@ -393,6 +393,18 @@
                 },
                 "description": {
                   "type": "string"
+                },
+                "course_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "example": [
+                    1,
+                    2,
+                    3
+                  ]
                 }
               }
             }
@@ -479,6 +491,110 @@
       },
       "delete": {
         "summary": "Delete Learning Path by id",
+        "responses": {
+          "200": null,
+          "description": "OK"
+        }
+      }
+    },
+    "/talent_courses": {
+      "post": {
+        "summary": "Talent assigned to Course",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "talent_id": {
+                  "type": "integer"
+                },
+                "course_id": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Talent 123 assigned to Course 8678"
+          }
+        }
+      }
+    },
+    "/talent_courses/{talent_id}/{course_id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "talent_id",
+          "schema": {
+            "type": "string"
+          },
+          "required": true,
+          "name": "course_id",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ],
+      "delete": {
+        "summary": "Talent removed from Course",
+        "responses": {
+          "200": null,
+          "description": "Talent 123 removed from Course 8678"
+        }
+      }
+    },
+    "/talent_learning_path_courses": {
+      "post": {
+        "summary": "Talent assigned to Learning Path (assigned to Course too if value provided)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "talent_id": {
+                  "type": "integer"
+                },
+                "learning_path_id": {
+                  "type": "integer"
+                },
+                "course_id": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/talent_learning_path_courses/{id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ],
+      "delete": {
+        "summary": "Talent removed from Learning Path",
         "responses": {
           "200": null,
           "description": "OK"
