@@ -30,6 +30,39 @@ Definition of done for this challenge:
 - Rspec for testing ✅
 - Documentation where applicable ✅
 
+# API Documentation
+
+<img src="https://github.com/juanroldan1989/elearnio-coding-challenge/raw/main/screenshots/swagger-api-docs.png" width="100%" />
+
+1. Swagger / OpenAPI `YAML` documentation file (format easier to read & maintain) created following standard guidelines: https://github.com/juanroldan1989/elearnio-coding-challenge/blob/main/docs/api/v1/main.yml
+
+2. `YAML` file converted into `JSON` (since `Swagger UI` script requires a `JSON` file):
+
+```ruby
+docs/api/v1% brew install yq
+docs/api/v1% yq -o=json eval main.yml > main.json
+```
+
+3. `JSON` file can be accessed through `Github repository` itself as: https://raw.githubusercontent.com/juanroldan1989/elearnio-coding-challenge/main/docs/api/v1/main.yml or
+
+4. `static` API Documentation `standalone` HTML page generated within `docs/api/v1` folder in repository: https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/installation.md#plain-old-htmlcssjs-standalone
+
+5. Within `static` API Documentation page, replace `url` value with your own `JSON` file's URL from point `3` above:
+
+```ruby
+...
+    <script>
+      window.onload = () => {
+        window.ui = SwaggerUIBundle({
+          url: "https://raw.githubusercontent.com/juanroldan1989/elearnio-coding-challenge/main/docs/api/v1/main.json?token=XYZ",
+          dom_id: '#swagger-ui',
+...
+```
+
+6. A `static website` can also be hosted within `S3 Bucket`: https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html
+
+- To upload files `aws sync` command is recommended. E.g.: `aws s3 sync docs/api/v1 s3://$YOUR_BUCKET_NAME`
+
 # Development
 
 1. Clone repository:
@@ -130,7 +163,7 @@ $ docker exec web rake db:create db:migrate db:test:prepare
 * `username` needs to match the one used in local postgres setup
 * `password` needs to match the one used in local postgres setup
 
-# Testing
+# Local API Testing
 
 ```ruby
 $ rspec spec/*
@@ -142,6 +175,28 @@ Finished in 1.85 seconds (files took 2.05 seconds to load)
 # `*` is important since it runs both `controller` AND `model` RSpec tests
 ```
 
+# Live (or staging) API Testing
+
+For these purposes, `Artillery` is a really useful framework used for load testing and gathering results on different endpoints.
+
+https://www.artillery.io/docs/guides/getting-started/installing-artillery
+
+https://www.artillery.io/docs/guides/integration-guides/github-actions
+
+Artilley Config/Scenarios references: https://www.artillery.io/docs/guides/guides/test-script-reference
+
+https://dev.to/brpaz/load-testing-your-applications-with-artillery-4m1p
+
+AWS references: https://aws.amazon.com/blogs/compute/load-testing-a-web-applications-serverless-backend/
+
 # CI/CD
 
+Sample Github Actions structure provided at `.github/workflows/ci_cd.yml` along with `rspec`, `deployment` and `notification` jobs to have a proper CI/CD Pipeline to be shared among colleagues while working through the API.
+
 # Deployment
+
+Heroku instructions: https://devcenter.heroku.com/articles/getting-started-with-rails6
+
+AWS Deployment can be achieved through Terraform:
+
+https://developer.hashicorp.com/terraform/tutorials/automation/github-actions
