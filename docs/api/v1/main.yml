@@ -1,0 +1,336 @@
+swagger: "2.0"
+
+info:
+  title: Elearnio Coding Challenge API
+  description: An API that handles learning paths, courses, course authors and talents.
+  version: 1.0.0
+
+host: https://<api-id>.execute-api.<region>.amazonaws.com
+
+basePath: /v1
+schemes:
+  - https
+
+paths:
+  /authors:
+    get:
+      summary: Returns authors collection
+      produces:
+        - application/json
+      responses:
+        200:
+        description: OK
+
+    post:
+      summary: Creates Author record
+      requestBody:
+        required: true
+        content:
+          schema:
+            type: object
+            properties:
+              first_name:
+                type: string
+              last_name:
+                type: string
+              example:
+                first_name: John
+                last_name: Sullivan
+      produces:
+        - application/json
+      responses:
+        200:
+          description: An author object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Author"
+
+  /authors/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+
+    get:
+      summary: Returns specific author by ID
+      produces:
+        - application/json
+      responses:
+        200:
+          description: An author object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Author"
+
+    put:
+      summary: Updates Author record
+      requestBody:
+        required: true
+        content:
+          schema:
+            type: object
+            properties:
+              first_name:
+                type: string
+              last_name:
+                type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: An author object.
+          content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Author"
+
+    delete:
+      summary: Delete Author by id
+      responses:
+        200:
+        description: OK
+
+  /courses:
+    get:
+      summary: Returns courses collection
+      produces:
+        - application/json
+      responses:
+        200:
+        description: OK
+
+    post:
+      summary: Creates course record
+      requestBody:
+        required: true
+        content:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              author_id:
+                type: integer
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A Course object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+
+  /courses/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+
+    get:
+      summary: Returns specific Course by ID
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A Course object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+
+    put:
+      summary: Updates Course record
+      requestBody:
+        required: true
+        content:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              author_id:
+                type: integer
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A Course object.
+          content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Course"
+
+    delete:
+      summary: Delete Course by id
+      responses:
+        200:
+        description: OK
+
+  /talents:
+    get:
+      summary: Returns talents collection
+      produces:
+        - application/json
+      responses:
+        200:
+        description: OK
+
+    post:
+      summary: Creates Talent record
+      requestBody:
+        required: true
+        content:
+          schema:
+            type: object
+            properties:
+              first_name:
+                type: string
+              last_name:
+                type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A Talent object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Talent"
+
+  /talents/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+
+    get:
+      summary: Returns specific Talent by ID
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A Talent object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Talent"
+
+    put:
+      summary: Updates Talent record
+      requestBody:
+        required: true
+        content:
+          schema:
+            type: object
+            properties:
+              first_name:
+                type: string
+              last_name:
+                type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A Talent object.
+          content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Talent"
+
+    delete:
+      summary: Delete Talent by id
+      responses:
+        200:
+        description: OK
+
+  /learning_paths:
+    get:
+      summary: Returns Learning Paths collection
+      produces:
+        - application/json
+      responses:
+        200:
+        description: OK
+
+    post:
+      summary: Creates Learning Path record
+      requestBody:
+        required: true
+        content:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A Learning Path object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LearningPath"
+
+  /learning_paths/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+
+    get:
+      summary: Returns specific Learning Path by ID
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A Learning Path object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LearningPath"
+
+    put:
+      summary: Updates Learning Path record
+      requestBody:
+        required: true
+        content:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A Learning Path object.
+          content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LearningPath"
+
+    delete:
+      summary: Delete Learning Path by id
+      responses:
+        200:
+        description: OK

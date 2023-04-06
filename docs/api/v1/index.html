@@ -1,0 +1,32 @@
+index.html<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="SwaggerUI" />
+    <title>SwaggerUI</title>
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css" />
+  </head>
+
+  <body>
+    <div id="swagger-ui"></div>
+    <script src="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js" crossorigin></script>
+    <script src="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-standalone-preset.js" crossorigin></script>
+    <script>
+      window.onload = () => {
+        window.ui = SwaggerUIBundle({
+          // url: "https://petstore3.swagger.io/api/v3/openapi.json",
+          // Access Github folder `docs/api/v1` -> `main.json` -> click on `raw` option -> use `token` value
+          // Update `token` value below with value from Github
+          url: "https://raw.githubusercontent.com/juanroldan1989/elearnio-coding-challenge/main/docs/api/v1/main.json?token=GHSAT0AAAAAAB7BFVK4FKFJQIT2JZXISVMQZBPEKBA",
+          dom_id: '#swagger-ui',
+          presets: [
+            SwaggerUIBundle.presets.apis,
+            SwaggerUIStandalonePreset
+          ],
+          layout: "StandaloneLayout",
+        });
+      };
+    </script>
+  </body>
+</html>
