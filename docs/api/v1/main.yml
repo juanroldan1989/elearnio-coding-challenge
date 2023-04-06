@@ -399,6 +399,28 @@ paths:
         200:
           description: OK
 
+    put:
+      summary: "Talent and LearningPath association updated (e.g.: Talent completes a course in a learning path)"
+      requestBody:
+        required: true
+        content:
+          schema:
+            type: object
+            properties:
+              talent_id:
+                type: integer
+              learning_path:
+                type: integer
+              course_id:
+                type: integer
+              course_status:
+                type: integer # STAND_BY, IN_PROGRESS, COMPLETED
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+
   /talent_learning_path_courses/{id}:
     parameters:
       - in: path
