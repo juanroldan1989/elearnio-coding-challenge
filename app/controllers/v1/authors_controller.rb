@@ -14,6 +14,16 @@ module V1
       end
     end
 
+    def show
+      author = Author.find(params[:id])
+
+      if author.present?
+        render json: { author: author }, status: 200
+      else
+        render json: { author: nil, message: "Author not found" }, status: 404
+      end
+    end
+
     def update
       author = Author.find(params[:id])
       author.update(author_params)

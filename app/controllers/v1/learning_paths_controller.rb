@@ -18,6 +18,16 @@ module V1
       end
     end
 
+    def show
+      learning_path = LearningPath.find(params[:id])
+
+      if learning_path.present?
+        render json: { learning_path: learning_path, courses: learning_path.courses }, status: 200
+      else
+        render json: { learning_path: nil, message: "LearningPath not found" }, status: 404
+      end
+    end
+
     def update
       learning_path = LearningPath.find(params[:id])
       learning_path.update(learning_path_params)

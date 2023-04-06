@@ -5,7 +5,7 @@ module V1
 
       if talent_course.save
         render json: {
-          message: "Talent ##{talent_course.talent_id} associated with Course ##{talent_course.course_id}"
+          message: "Talent ##{talent_course.talent_id} assigned Course ##{talent_course.course_id}"
         }, status: 200
       else
         render json: { message: talent_course.errors.full_messages }, status: 422

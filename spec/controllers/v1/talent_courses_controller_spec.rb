@@ -13,7 +13,7 @@ RSpec.describe V1::TalentCoursesController, type: :controller do
 
         response_body = JSON.parse(response.body)
 
-        expect(response_body["message"]).to eq "Talent ##{talent.id} associated with Course ##{course.id}"
+        expect(response_body["message"]).to eq "Talent ##{talent.id} assigned Course ##{course.id}"
       end
     end
 

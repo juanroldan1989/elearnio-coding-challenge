@@ -14,6 +14,16 @@ module V1
       end
     end
 
+    def show
+      course = Course.find(params[:id])
+
+      if course.present?
+        render json: { course: course }, status: 200
+      else
+        render json: { course: nil, message: "Course not found" }, status: 404
+      end
+    end
+
     def update
       course = Course.find(params[:id])
       course.update(course_params)

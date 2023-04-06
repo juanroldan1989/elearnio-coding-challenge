@@ -14,6 +14,16 @@ module V1
       end
     end
 
+    def show
+      talent = Talent.find(params[:id])
+
+      if talent.present?
+        render json: { talent: talent }, status: 200
+      else
+        render json: { talent: nil, message: "Talent not found" }, status: 404
+      end
+    end
+
     def update
       talent = Talent.find(params[:id])
       talent.update(talent_params)
