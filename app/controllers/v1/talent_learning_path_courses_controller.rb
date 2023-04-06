@@ -11,10 +11,12 @@ module V1
     end
 
     def update
-      record = TalentLearningPathCourse.find(params[:id])
-      record.update(record_params)
+      record = TalentLearningPathCourses.update_status(params[:id], record_params)
 
-      render json: { talent_learning_path_course: record.reload, message: record.errors.try(:full_messages) }, status: 200
+      render json: {
+        talent_learning_path_course: record,
+        message: record.errors.try(:full_messages)
+      }, status: 200
     end
 
     def destroy

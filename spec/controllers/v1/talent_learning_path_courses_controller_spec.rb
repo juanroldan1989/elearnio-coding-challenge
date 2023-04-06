@@ -42,13 +42,16 @@ RSpec.describe V1::TalentLearningPathCoursesController, type: :controller do
   describe "PUT #update" do
     let!(:talent) { create(:talent) }
     let!(:learning_path) { create(:learning_path) }
-    let!(:course) { create(:course, author: create(:author)) }
+    let!(:course_1) { create(:course, author: create(:author)) }
+    let!(:course_2) { create(:course, author: create(:author)) }
+    let!(:learning_path_course) { create(:learning_path_course, learning_path: learning_path, course: course_1) }
+    let!(:learning_path_course) { create(:learning_path_course, learning_path: learning_path, course: course_2) }
 
     let!(:talent_learning_path_course) {
       create(:talent_learning_path_course,
         talent: talent,
         learning_path: learning_path,
-        course: course
+        course: course_1
       )
     }
 
@@ -62,6 +65,7 @@ RSpec.describe V1::TalentLearningPathCoursesController, type: :controller do
 
         response_body = JSON.parse(response.body)
 
+        expect(response_body["talent_learning_path_course"]["course_id"]).to eq course_1.id
         expect(response_body["talent_learning_path_course"]["course_status"]).to eq TalentLearningPathCourse::IN_PROGRESS
       end
     end
@@ -76,7 +80,50 @@ RSpec.describe V1::TalentLearningPathCoursesController, type: :controller do
 
         response_body = JSON.parse(response.body)
 
-        expect(response_body["talent_learning_path_course"]["course_status"]).to eq TalentLearningPathCourse::COMPLETED
+        expect(response_body["talent_learning_path_course"]["course_id"]).to eq course_2.id
+        expect(response_body["talent_learning_path_course"]["course_status"]).to eq TalentLearningPathCourse::STAND_BY
+      end
+
+      it "should create new TalentLearningPathCourse record with next course in the learning path" do
+        expect {
+          put :update, params: { id: talent_learning_path_course.id, talent_learning_path_course: valid_params }
+        }.to change { TalentLearningPathCourse.count }.by(1)
+
+        new_record = TalentLearningPathCourse.last
+
+        expect(new_record.course.id).to eq course_2.id
+        expect(new_record.course_status).to eq TalentLearningPathCourse::STAND_BY
+      end
+
+      context "and learning path does not have more courses" do
+        let!(:learning_path_2) { create(:learning_path) }
+        let!(:course_3) { create(:course, author: create(:author)) }
+        let!(:learning_path_course) {
+          create(:learning_path_course, learning_path: learning_path_2, course: course_3)
+        }
+
+        let!(:talent_learning_path_course_2) {
+          create(:talent_learning_path_course,
+            talent: talent,
+            learning_path: learning_path_2,
+            course: course_3
+          )
+        }
+
+        it "should not create new TalentLearningPathCourse record" do
+          expect {
+            put :update, params: { id: talent_learning_path_course_2.id, talent_learning_path_course: valid_params }
+          }.not_to change { TalentLearningPathCourse.count }
+        end
+
+        it "should return error message" do
+          put :update, params: { id: talent_learning_path_course_2.id, talent_learning_path_course: valid_params }
+
+          response_body = JSON.parse(response.body)
+
+          expect(response_body["talent_learning_path_course"]["id"]).to eq nil
+          expect(response_body["message"]).to eq ["Learning path does not have any more courses to proceed with"]
+        end
       end
     end
   end
